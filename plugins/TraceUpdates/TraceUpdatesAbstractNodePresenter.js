@@ -18,7 +18,8 @@ import type {
 } from './TraceUpdatesTypes';
 
 // How long the measurement should be presented for.
-const DURATION = 250;
+const DURATION = 500;
+const ANIMATION_DURATION = 150;
 
 const {Record, Map} = immutable;
 
@@ -36,10 +37,10 @@ class TraceUpdatesAbstractNodePresenter {
   _redraw: () => void;
 
   constructor() {
-    this._pool = new Map();
-    this._drawing = false;
     this._clearTimer = 0;
+    this._drawing = false;
     this._enabled = false;
+    this._pool = new Map();
 
     this._draw = this._draw.bind(this);
     this._redraw = this._redraw.bind(this);
@@ -72,7 +73,6 @@ class TraceUpdatesAbstractNodePresenter {
   }
 
   setEnabled(enabled: boolean): void {
-    // console.log('setEnabled', enabled);
     if (this._enabled === enabled) {
       return;
     }
@@ -93,7 +93,7 @@ class TraceUpdatesAbstractNodePresenter {
     this.clearImpl();
   }
 
-  drawImpl(measurements: Map<Measurement, MetaData>): void {
+  drawImpl(measurements: Map<Measurement, MetaData>, animationDuration: number): void {
     // sub-class should implement this.
   }
 
@@ -104,7 +104,6 @@ class TraceUpdatesAbstractNodePresenter {
   _redraw(): void {
     this._clearTimer = 0;
     if (!this._drawing && this._pool.size > 0) {
-      this._drawing = true;
       this._draw();
     }
   }
@@ -115,8 +114,10 @@ class TraceUpdatesAbstractNodePresenter {
       return;
     }
 
-    var now = Date.now();
-    var minExpiration = Number.MAX_VALUE;
+    this._drawing = true;
+
+    const now = Date.now();
+    let minExpiration = Number.MAX_VALUE;
 
     this._pool = this._pool.withMutations(_pool => {
       for (const [measurement, data] of _pool.entries()) {
@@ -129,11 +130,16 @@ class TraceUpdatesAbstractNodePresenter {
       }
     });
 
-    this.drawImpl(this._pool);
+    let timeUntilRedraw = minExpiration - now - ANIMATION_DURATION;
+    if (timeUntilRedraw < ANIMATION_DURATION) {
+      timeUntilRedraw = 1;
+    }
+
+    this.drawImpl(this._pool, ANIMATION_DURATION);
 
     if (this._pool.size > 0) {
       clearTimeout(this._clearTimer);
-      this._clearTimer = setTimeout(this._redraw, minExpiration - now);
+      this._clearTimer = setTimeout(this._redraw, timeUntilRedraw);
     }
 
     this._drawing = false;

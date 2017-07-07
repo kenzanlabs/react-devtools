@@ -29,13 +29,20 @@ const COLORS = [
 
 const HOTTEST_COLOR = COLORS[COLORS.length - 1];
 
-function drawBorder(ctx, measurement, borderWidth, borderColor) {
+function drawBorder(ctx, measurement, borderWidth, borderColor, 
+  timeUntilExpiration: number, animationDuration: number) {
+  // transparency as a function of the time until expiration
+  ctx.globalAlpha = 1;
+  if (timeUntilExpiration <= animationDuration) {
+    ctx.globalAlpha = timeUntilExpiration / animationDuration;
+  }
+
   // outline
   ctx.lineWidth = 1;
   ctx.strokeStyle = OUTLINE_COLOR;
 
   ctx.strokeRect(
-    measurement.left- 1,
+    measurement.left - 1,
     measurement.top - 1,
     measurement.width + 2,
     measurement.height + 2,
@@ -51,7 +58,6 @@ function drawBorder(ctx, measurement, borderWidth, borderColor) {
     measurement.height - borderWidth,
   );
   ctx.strokeStyle = borderColor;
-
 
   if (measurement.should_update) {
     ctx.setLineDash([2]);
@@ -81,19 +87,15 @@ class TraceUpdatesWebNodePresenter extends TraceUpdatesAbstractNodePresenter {
     this._canvas = null;
   }
 
-  drawImpl(pool: Set): void {
+  drawImpl(pool: Set, animationDuration: number): void {
     this._ensureCanvas();
     var canvas = this._canvas;
     var ctx = canvas.getContext('2d');
-    ctx.clearRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (const [measurement, data] of pool.entries()) {
       const color = COLORS[data.hit - 1] || HOTTEST_COLOR;
-      drawBorder(ctx, measurement, 1, color);
+      const timeUntilExpiration = (data.expiration || 0) - Date.now();
+      drawBorder(ctx, measurement, 1, color, timeUntilExpiration, animationDuration);
     }
   }
 
