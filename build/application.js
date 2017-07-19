@@ -22276,7 +22276,7 @@
 	      }, _this._onMouseEnter = function (event) {
 	        _this.setState({ isHovered: true });
 	      }, _this._onMouseLeave = function (event) {
-	        _this.setState({ isHovered: false });
+	        _this.setState({ isHovered: false, isPressed: false });
 	      }, _this._onMouseUp = function (event) {
 	        _this.setState({ isPressed: false });
 	      }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -22368,6 +22368,7 @@
 	'use strict';
 
 	var Icons = {
+	  CHECK: '\n    M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z\n  ',
 	  COPY: '\n    M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,\n    0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z\n  ',
 	  EDIT: '\n    M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,\n    5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z\n  ',
 	  INSPECT: '\n    M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M3.05,\n    13H1V11H3.05C3.5,6.83 6.83,3.5 11,3.05V1H13V3.05C17.17,3.5 20.5,6.83 20.95,\n    11H23V13H20.95C20.5,17.17 17.17,20.5 13,20.95V23H11V20.95C6.83,20.5 3.5,17.17 3.05,\n    13M12,5A7,7 0 0,0 5,12A7,7 0 0,0 12,19A7,7 0 0,0 19,12A7,7 0 0,0 12,5Z\n  ',
@@ -31567,6 +31568,58 @@
 	  state06: '#000000'
 	};
 
+	var AtomDark = {
+	  displayName: 'Atom (dark)',
+	  hidden: true,
+	  base00: '#1d1f21',
+	  base01: '#292c2f',
+	  base02: '#2e2e2e',
+	  base03: '#303030',
+	  base04: '#868989',
+	  base05: '#c1c4c2',
+	  special00: '#fffeba',
+	  special01: '#f574f3',
+	  special02: '#aafd6a',
+	  special03: '#93c294',
+	  special04: '#fed2aa',
+	  special05: '#93c294',
+	  special06: '#c5c5fb',
+	  special07: '#98ccfc',
+	  state00: '#4483c2',
+	  state01: '#444444',
+	  state02: '#ffffff',
+	  state03: '#444444',
+	  state04: '#4483c2',
+	  state05: '#ffffff',
+	  state06: '#e3e6e4'
+	};
+
+	var AtomLight = {
+	  displayName: 'Atom (light)',
+	  hidden: true,
+	  base00: '#ffffff',
+	  base01: '#f4f4f4',
+	  base02: '#eeeeee',
+	  base03: '#555555',
+	  base04: '#999989',
+	  base05: '#222222',
+	  special00: '#11807f',
+	  special01: '#db1847',
+	  special02: '#db1847',
+	  special03: '#11807f',
+	  special04: '#97040c',
+	  special05: '#616b9f',
+	  special06: '#455686',
+	  special07: '#11807f',
+	  state00: '#b0c4d9',
+	  state01: '#fffed8',
+	  state02: '#222222',
+	  state03: '#fffed8',
+	  state04: '#6da6e7',
+	  state05: '#ffffff',
+	  state06: '#000000'
+	};
+
 	var ChromeDark = {
 	  displayName: 'Chrome (dark)',
 	  hidden: true,
@@ -31897,6 +31950,56 @@
 	  state06: '#A5A9B4'
 	};
 
+	var OneDark = {
+	  displayName: 'One (dark)',
+	  base00: '#282c34',
+	  base01: '#21252b',
+	  base02: '#568af2',
+	  base03: '#3b4048',
+	  base04: '#3e454f',
+	  base05: '#abb2bf',
+	  special00: '#e5c07b',
+	  special01: '#abb2bf',
+	  special02: '#98c379',
+	  special03: '#9da5b4',
+	  special04: '#e06c75',
+	  special05: '#6b717e',
+	  special06: '#d19a66',
+	  special07: '#abb2bf',
+	  state00: '#4d78cc',
+	  state01: '#3e4450',
+	  state02: '#ffffff',
+	  state03: '#2c323c',
+	  state04: '#4d78cc',
+	  state05: '#ffffff',
+	  state06: '#ffffff'
+	};
+
+	var OneLight = {
+	  displayName: 'One (light)',
+	  base00: '#fafafa',
+	  base01: '#eaeaeb',
+	  base02: '#eeeeee',
+	  base03: '#dbdbdc',
+	  base04: '#8e8e90',
+	  base05: '#3e4048',
+	  special00: '#c0831e',
+	  special01: '#a42ea2',
+	  special02: '#68ab68',
+	  special03: '#447bef',
+	  special04: '#e2574e',
+	  special05: '#424242',
+	  special06: '#976715',
+	  special07: '#424242',
+	  state00: '#447bef',
+	  state01: '#f0f0f1',
+	  state02: '#ffffff',
+	  state03: '#f0f0f1',
+	  state04: '#447bef',
+	  state05: '#ffffff',
+	  state06: '#1c2026'
+	};
+
 	var Phd = {
 	  displayName: 'Phd',
 	  base00: '#061229',
@@ -31975,6 +32078,8 @@
 	module.exports = {
 	  ApathyDark: ApathyDark,
 	  ApathyLight: ApathyLight,
+	  AtomDark: AtomDark,
+	  AtomLight: AtomLight,
 	  ChromeDark: ChromeDark,
 	  ChromeDefault: ChromeDefault,
 	  Dracula: Dracula,
@@ -31988,6 +32093,8 @@
 	  Materia: Materia,
 	  MaterialDark: MaterialDark,
 	  OceanDark: OceanDark,
+	  OneDark: OneDark,
+	  OneLight: OneLight,
 	  Phd: Phd,
 	  Tomorrow: Tomorrow,
 	  TomorrowNight: TomorrowNight
